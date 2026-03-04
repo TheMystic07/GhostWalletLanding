@@ -1,4 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { BackgroundBeams } from "./components/ui/background-beams";
+import { HoverBorderGradient } from "./components/ui/hover-border-gradient";
+import { Spotlight } from "./components/ui/spotlight";
+import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 
 function CloseIcon() {
   return (
@@ -137,86 +142,165 @@ export default function App() {
           </video>
         </div>
 
+        <BackgroundBeams />
+        <Spotlight className="spotlight-left" delay={0.2} />
+        <Spotlight className="spotlight-right" delay={0.45} />
+
         <main>
-          <section className="hero">
-            <div className="badge">
+          <motion.section
+            className="hero"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.div
+              className="badge"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <span className="badge-dot"></span>
               <span className="badge-text">
                 Agentic Privacy Engine <strong>v1.0.4-beta</strong>
               </span>
-            </div>
+            </motion.div>
 
-            <h1>The World's First Local AI Agentic Privacy Wallet</h1>
+            <TextGenerateEffect
+              className="hero-heading"
+              words="The World's First Local AI Agentic Privacy Wallet"
+            />
 
-            <p className="subtitle">
+            <motion.p
+              className="subtitle"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.55 }}
+            >
               Ghost Wallet combines high-performance Solana privacy protocols with local-first AI agents. Execute
               complex strategies privately, without ever leaking your intent to the mempool.
-            </p>
+            </motion.p>
 
-            <div className="actions">
-              <button className="cta" type="button" onClick={() => setModalType("android")}>
-                <span className="cta-glow"></span>
-                <span className="cta-inner cta-inner-light">Download Beta (Android)</span>
-              </button>
-              <button type="button" className="ios-pill" onClick={() => setModalType("ios")}>
-                iOS App Coming Soon
-              </button>
-            </div>
+            <motion.div
+              className="actions"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+            >
+              <HoverBorderGradient
+                as="button"
+                type="button"
+                className="cta cta-shell"
+                innerClassName="cta-inner cta-inner-light"
+                onClick={() => setModalType("android")}
+              >
+                Download Beta (Android)
+              </HoverBorderGradient>
 
-            <div className="problem">
+              <HoverBorderGradient
+                as="button"
+                type="button"
+                className="cta ios-shell"
+                innerClassName="cta-inner cta-inner-dark"
+                onClick={() => setModalType("ios")}
+              >
+                Download iOS Beta (IPA)
+              </HoverBorderGradient>
+            </motion.div>
+
+            <motion.div
+              className="problem"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.85 }}
+            >
               <p className="problem-label">The Problem</p>
               <p className="problem-text">
                 Cloud AI agents leak your financial intent before the trade even happens.{" "}
                 <strong>Ghost Wallet keeps the intelligence on-device.</strong>
               </p>
-            </div>
-          </section>
+            </motion.div>
+          </motion.section>
         </main>
 
         <div className="mobile-bottom-glow" aria-hidden="true"></div>
       </div>
 
-      <div id="modal" className={`modal ${isModalOpen ? "open" : ""}`} aria-hidden={!isModalOpen}>
-        <div className="modal-backdrop" onClick={closeModal}></div>
-        <div className="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-          <button className="modal-close" type="button" aria-label="Close" onClick={closeModal}>
-            <CloseIcon />
-          </button>
+      <AnimatePresence>
+        {isModalOpen ? (
+          <motion.div
+            id="modal"
+            className="modal open"
+            aria-hidden={!isModalOpen}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div
+              className="modal-backdrop"
+              onClick={closeModal}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            <motion.div
+              className="modal-card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-title"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 12 }}
+              transition={{ duration: 0.24, ease: "easeOut" }}
+            >
+              <button className="modal-close" type="button" aria-label="Close" onClick={closeModal}>
+                <CloseIcon />
+              </button>
 
-          <div className="modal-content">
-            <div className="modal-icon-wrap" aria-hidden="true">
-              <WarningIcon />
-            </div>
-
-            <h2 id="modal-title" className="modal-title">
-              {modalConfig.title}
-            </h2>
-
-            <div className="modal-copy">
-              {modalConfig.copy.map((line, idx) => (
-                <p key={idx}>{line}</p>
-              ))}
-            </div>
-
-            <div className="modal-actions">
-              {modalConfig.actions.map((action) => (
-                <a
-                  key={action.label}
-                  className={`modal-btn ${action.variant}`}
-                  href={action.href}
-                  target={action.external ? "_blank" : undefined}
-                  rel={action.external ? "noopener noreferrer" : undefined}
+              <div className="modal-content">
+                <motion.div
+                  className="modal-icon-wrap"
+                  aria-hidden="true"
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.08 }}
                 >
-                  {action.icon}
-                  <span>{action.label}</span>
-                </a>
-              ))}
-            </div>
+                  <WarningIcon />
+                </motion.div>
 
-            <p className="modal-risk">{modalConfig.risk}</p>
-          </div>
-        </div>
-      </div>
+                <h2 id="modal-title" className="modal-title">
+                  {modalConfig.title}
+                </h2>
+
+                <div className="modal-copy">
+                  {modalConfig.copy.map((line, idx) => (
+                    <p key={idx}>{line}</p>
+                  ))}
+                </div>
+
+                <div className="modal-actions">
+                  {modalConfig.actions.map((action) => (
+                    <motion.a
+                      key={action.label}
+                      className={`modal-btn ${action.variant}`}
+                      href={action.href}
+                      target={action.external ? "_blank" : undefined}
+                      rel={action.external ? "noopener noreferrer" : undefined}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      {action.icon}
+                      <span>{action.label}</span>
+                    </motion.a>
+                  ))}
+                </div>
+
+                <p className="modal-risk">{modalConfig.risk}</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }
