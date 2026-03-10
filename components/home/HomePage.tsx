@@ -1,9 +1,10 @@
+"use client";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BackgroundBeams } from "./components/ui/background-beams";
-import { HoverBorderGradient } from "./components/ui/hover-border-gradient";
-import { Spotlight } from "./components/ui/spotlight";
-import { TextGenerateEffect } from "./components/ui/text-generate-effect";
+import { BackgroundBeams } from "./_components/background-beams";
+import { HoverBorderGradient } from "./_components/hover-border-gradient";
+import { Spotlight } from "./_components/spotlight";
+import { TextGenerateEffect } from "./_components/text-generate-effect";
 
 function CloseIcon() {
   return (
@@ -43,8 +44,8 @@ function GithubIcon() {
   );
 }
 
-export default function App() {
-  const [modalType, setModalType] = useState(null);
+export default function HomePage() {
+  const [modalType, setModalType] = useState<string | null>(null);
   const isModalOpen = modalType !== null;
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function App() {
   }, [isModalOpen]);
 
   useEffect(() => {
-    const onKeyDown = (event) => {
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isModalOpen) {
         setModalType(null);
       }
@@ -75,7 +76,8 @@ export default function App() {
             <span className="cyan">Solana Devnet</span>.
           </>,
           <>
-            This build is an <strong>IPA</strong> file that can be installed via sideloading (AltStore).
+            This build is an <strong>IPA</strong> file that can be installed via
+            sideloading (AltStore).
           </>,
           <>TestFlight support is launching soon.</>,
         ],
@@ -103,10 +105,13 @@ export default function App() {
       title: "Android Closed Beta Access",
       copy: [
         <>
-          Ghost Wallet Android is currently in <strong>Closed Beta</strong> and operating exclusively on{" "}
-          <span className="cyan">Solana Devnet</span>.
+          Ghost Wallet Android is currently in <strong>Closed Beta</strong> and
+          operating exclusively on <span className="cyan">Solana Devnet</span>.
         </>,
-        <>As an early tester, your feedback is invaluable. Please report any bugs or issues you encounter to help us refine the privacy engine.</>,
+        <>
+          As an early tester, your feedback is invaluable. Please report any
+          bugs or issues you encounter to help us refine the privacy engine.
+        </>,
       ],
       actions: [
         {
@@ -176,8 +181,9 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.55 }}
             >
-              Ghost Wallet combines high-performance Solana privacy protocols with local-first AI agents. Execute
-              complex strategies privately, without ever leaking your intent to the mempool.
+              Ghost Wallet combines high-performance Solana privacy protocols
+              with local-first AI agents. Execute complex strategies privately,
+              without ever leaking your intent to the mempool.
             </motion.p>
 
             <motion.div
@@ -215,7 +221,8 @@ export default function App() {
             >
               <p className="problem-label">The Problem</p>
               <p className="problem-text">
-                Cloud AI agents leak your financial intent before the trade even happens.{" "}
+                Cloud AI agents leak your financial intent before the trade even
+                happens.{" "}
                 <strong>Ghost Wallet keeps the intelligence on-device.</strong>
               </p>
             </motion.div>
@@ -253,7 +260,12 @@ export default function App() {
               exit={{ opacity: 0, scale: 0.94, y: 12 }}
               transition={{ duration: 0.24, ease: "easeOut" }}
             >
-              <button className="modal-close" type="button" aria-label="Close" onClick={closeModal}>
+              <button
+                className="modal-close"
+                type="button"
+                aria-label="Close"
+                onClick={closeModal}
+              >
                 <CloseIcon />
               </button>
 

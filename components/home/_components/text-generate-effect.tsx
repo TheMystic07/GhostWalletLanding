@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
 
-export function TextGenerateEffect({ words, className = "" }) {
+export function TextGenerateEffect({
+  words,
+  className = "",
+}: {
+  words: string;
+  className?: string;
+}) {
   const tokens = words.split(" ");
 
   return (
     <h1 className={className}>
-      {tokens.map((word, idx) => (
+      {tokens.map((word: string, idx: number) => (
         <motion.span
           key={`${word}-${idx}`}
           className="hero-heading-word"

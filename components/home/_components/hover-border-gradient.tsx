@@ -4,9 +4,11 @@ export function HoverBorderGradient({
   as = "button",
   className = "",
   innerClassName = "",
+  // @ts-ignore
   children,
   ...props
 }) {
+  // @ts-ignore
   const Component = motion[as] || motion.button;
 
   return (
@@ -18,7 +20,9 @@ export function HoverBorderGradient({
       {...props}
     >
       <span className="hover-border-gradient__border" />
-      <span className={`hover-border-gradient__inner ${innerClassName}`.trim()}>{children}</span>
+      <span className={`hover-border-gradient__inner ${innerClassName}`.trim()}>
+        {children}
+      </span>
     </Component>
   );
 }

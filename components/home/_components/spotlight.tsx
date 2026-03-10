@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 
-export function Spotlight({ className = "", delay = 0 }) {
+export function Spotlight({
+  className = "",
+  delay = 0,
+}: {
+  className?: string;
+  delay?: number;
+}) {
   return (
     <motion.div
       className={`spotlight ${className}`.trim()}
