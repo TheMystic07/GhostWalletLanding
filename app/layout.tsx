@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ghostwallet.yeetlabs.fun"),
   title: "Ghost Wallet",
   description: "The World's Best Local AI Agentic Privacy Wallet",
 };
